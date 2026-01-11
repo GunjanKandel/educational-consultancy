@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Models\AboutTopic;
 use App\Models\Course;
 use App\Models\Blog;
 use App\Models\User;
@@ -11,7 +12,10 @@ use App\Models\Service;
 use App\Models\Testimonial;
 use App\Models\Team;
 use App\Models\Branch;
+use App\Models\Event;
+use App\Models\Faq;
 use App\Models\University;
+use Carbon\Carbon;
 
 class HomeController extends Controller
 {
@@ -65,6 +69,11 @@ class HomeController extends Controller
             ->take(3)
             ->get();
 
+        // About Topics for homepage
+        $aboutTopics = AboutTopic::where('is_active', true)
+            ->orderBy('order', 'asc')
+            ->get();
+
         return view('frontend.home', compact(
             'featured_courses',
             'latest_blogs',
@@ -73,7 +82,8 @@ class HomeController extends Controller
             'services',
             'teams',
             'branches',
-            'testimonials'
+            'testimonials',
+            'aboutTopics'
         ));
     }
 
@@ -84,7 +94,12 @@ class HomeController extends Controller
             ->orderBy('order', 'asc')
             ->get();
 
-        return view('frontend.about', compact('teams'));
+        // Load About Topics
+        $aboutTopics = AboutTopic::where('is_active', true)
+            ->orderBy('order', 'asc')
+            ->get();
+
+        return view('frontend.about', compact('teams', 'aboutTopics'));
     }
 
     public function services()
@@ -100,8 +115,53 @@ class HomeController extends Controller
         // Load all team members for team page
         $teams = Team::where('is_active', true)
             ->orderBy('order', 'asc')
-            ->get();
+            ->paginate(9);
 
         return view('frontend.team', compact('teams'));
     }
+
+    public function events()
+    {
+        $today = Carbon::now();
+
+        // Upcoming Events
+        $upcoming_events = Event::where('is_active', true)
+            ->where('event_date', '>=', $today)
+            ->orderBy('event_date', 'asc')
+            ->get();
+
+        // Past Events
+        $past_events = Event::where('is_active', true)
+            ->where('event_date', '<', $today)
+            ->orderBy('event_date', 'desc')
+            ->get();
+
+        return view('frontend.events', compact(
+            'upcoming_events',
+            'past_events'
+        ));
+    }
+
+    public function scholarships()
+    {
+        // Fetch active scholarships, latest first
+        $scholarships = \App\Models\Scholarship::where('is_active', true)
+            ->latest()
+            ->paginate(9); // paginate if you want pagination
+
+        return view('frontend.scholarships', compact('scholarships'));
+    }
+
+    public function faqs()
+    {
+        // Get all active FAQs grouped by category
+        $faqs = Faq::where('is_active', 1)
+            ->orderBy('category')
+            ->orderBy('id')
+            ->get()
+            ->groupBy('category'); // Groups FAQs by category
+
+        return view('frontend.faqs', compact('faqs'));
+    }
+
 }

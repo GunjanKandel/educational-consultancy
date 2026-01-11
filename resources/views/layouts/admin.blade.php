@@ -207,6 +207,10 @@
             <i class="fas fa-file"></i> Pages
         </a>
 
+        <a href="{{ route('admin.about-topics.index') }}" class="{{ request()->routeIs('admin.about-topics.*') ? 'active' : '' }}">
+    <i class="fas fa-file-alt"></i> About Topics
+</a>
+
         @if(auth()->user()->role === 'admin')
         <a href="{{ route('admin.settings.index') }}" class="{{ request()->routeIs('admin.settings.*') ? 'active' : '' }}">
             <i class="fas fa-cog"></i> Settings

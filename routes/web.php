@@ -1,4 +1,6 @@
 <?php
+
+use App\Http\Controllers\Admin\AboutTopicController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\CountryController;
@@ -98,6 +100,9 @@ Route::prefix('admin')->name('admin.')->middleware(['auth'])->group(function () 
 
     // Courses
     Route::resource('courses', CourseController::class);
+
+    Route::resource('about-topics', AboutTopicController::class);
+
 
     // Universities
     Route::resource('universities', UniversityController::class);

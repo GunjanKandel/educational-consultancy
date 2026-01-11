@@ -26,7 +26,7 @@ class EventController extends Controller
         $validated = $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'required|string',
-            'type' => 'required|in:seminar,workshop,fair,webinar',
+            'type' => 'required|string|max:50',
             'event_date' => 'required|date',
             'venue' => 'nullable|string|max:255',
             'online_link' => 'nullable|url',

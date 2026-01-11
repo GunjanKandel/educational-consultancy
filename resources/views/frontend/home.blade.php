@@ -175,7 +175,27 @@
     </div>
 </section>
 
-<!-- Remaining sections (Team, Branches, Testimonials, CTA) remain unchanged -->
-<!-- ... [rest of your home blade content stays the same] ... -->
+<!-- About Topics Section -->
+<section class="py-4 py-md-5">
+    <div class="container">
+        <div class="text-center mb-4 mb-md-5">
+            <h2 class="section-title">About Our Approach</h2>
+            <p class="section-subtitle">We believe in quality guidance and personal support</p>
+        </div>
+        <div class="row g-3 g-md-4">
+            @foreach($aboutTopics as $topic)
+            <div class="col-sm-6 col-lg-4">
+                <div class="card about-topic-card text-center h-100 p-3">
+                    @if($topic->icon)
+                    <i class="{{ $topic->icon }} fa-2x fa-md-3x mb-2"></i>
+                    @endif
+                    <h5 class="card-title">{{ $topic->title }}</h5>
+                    <p class="card-text text-muted small">{{ Str::limit($topic->description, 100) }}</p>
+                </div>
+            </div>
+            @endforeach
+        </div>
+    </div>
+</section>
 
 @endsection
