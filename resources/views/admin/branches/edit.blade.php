@@ -14,6 +14,13 @@
             @method('PUT')
 
             <div class="row g-3">
+                <!-- NEW ORDER FIELD -->
+                <div class="col-md-6">
+                    <label class="form-label">Order</label>
+                    <input type="number" name="order" class="form-control"
+                           value="{{ $branch->order }}" required>
+                </div>
+
                 <div class="col-md-6">
                     <label class="form-label">Branch Name</label>
                     <input type="text" name="name" class="form-control"

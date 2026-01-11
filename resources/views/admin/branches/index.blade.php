@@ -19,6 +19,7 @@
             <table class="table table-hover align-middle">
                 <thead>
                     <tr>
+                        <th>Order</th>
                         <th>Branch Name</th>
                         <th>City</th>
                         <th>Country</th>
@@ -31,12 +32,21 @@
                     @forelse($branches as $branch)
                         <tr>
                             <td>
+                                <!-- Inline order update -->
+                                <form action="{{ route('admin.branches.update', $branch->id) }}" method="POST" style="display:inline;">
+                                    @csrf
+                                    @method('PUT')
+                                    <input type="number" name="order" value="{{ $branch->order }}" style="width:50px">
+                                    <button type="submit" class="btn btn-sm btn-outline-secondary">Save</button>
+                                </form>
+                            </td>
+
+                            <td>
                                 <strong>{{ $branch->name }}</strong><br>
                                 <small class="text-muted">{{ $branch->email }}</small>
                             </td>
 
                             <td>{{ $branch->city ?? '-' }}</td>
-
                             <td>{{ $branch->country ?? '-' }}</td>
 
                             <td>
@@ -56,8 +66,7 @@
                             </td>
 
                             <td class="text-end">
-                                <a href="{{ route('admin.branches.edit', $branch) }}"
-                                   class="btn btn-sm btn-outline-primary">
+                                <a href="{{ route('admin.branches.edit', $branch) }}" class="btn btn-sm btn-outline-primary">
                                     <i class="fas fa-edit"></i>
                                 </a>
 
@@ -75,7 +84,7 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="6" class="text-center text-muted py-4">
+                            <td colspan="7" class="text-center text-muted py-4">
                                 No branches found.
                             </td>
                         </tr>
