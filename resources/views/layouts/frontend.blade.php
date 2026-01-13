@@ -735,7 +735,7 @@
                             <i class="fas fa-map-marker-alt me-2"></i>Bharatpur, Chitwan
                         </li>
                         <li style="color: rgba(255,255,255,0.7); margin-bottom: 0.8rem;">
-                            <i class="fas fa-phone me-2"></i>+977 123456789
+                            <i class="fas fa-phone me-2"></i>+977 9849978111
                         </li>
                         <li style="color: rgba(255,255,255,0.7);">
                             <i class="fas fa-envelope me-2"></i>info@educonsult.com

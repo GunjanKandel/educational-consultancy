@@ -20,7 +20,9 @@
                 </div>
             </div>
             <div class="col-lg-6 animate-fade-in" style="animation-delay: 0.2s;">
-                <img src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=600" alt="Students" class="img-fluid rounded shadow-lg">
+                <img src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=600"
+     style="border:5px solid red;">
+
             </div>
         </div>
     </div>
