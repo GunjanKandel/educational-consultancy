@@ -27,6 +27,7 @@ use App\Http\Controllers\Frontend\CountryController as FrontendCountryController
 use App\Http\Controllers\Frontend\BlogController as FrontendBlogController;
 use App\Http\Controllers\Frontend\ContactController as FrontendContactController;
 use App\Http\Controllers\Frontend\ApplicationController as FrontendApplicationController;
+use App\Http\Controllers\Frontend\UniversityController as FrontendUniversityController;
 
 use Illuminate\Support\Facades\Route;
 
@@ -53,6 +54,10 @@ Route::get('/blogs/{slug}', [FrontendBlogController::class, 'show'])->name('blog
 // Contact
 Route::get('/contact', [FrontendContactController::class, 'index'])->name('contact.index');
 Route::post('/contact', [FrontendContactController::class, 'store'])->name('contact.store');
+
+//university
+Route::get('/universities', [FrontendUniversityController::class, 'index'])->name('universities.index');
+Route::get('/universities/{slug}', [FrontendUniversityController::class, 'show'])->name('universities.show');
 
 // Application
 Route::get('/apply', [FrontendApplicationController::class, 'create'])->name('application.create');

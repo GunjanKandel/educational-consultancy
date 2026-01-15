@@ -1,3 +1,4 @@
+{{-- resources/views/layouts/frontend.blade.php --}}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,9 +16,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     
     <style>
-        /* ============================================
-           PROJECT 1 COLOR SCHEME APPLIED
-           ============================================ */
         :root {
             --primary-color: #0a4d68;
             --secondary-color: #088395;
@@ -34,15 +32,60 @@
             box-sizing: border-box;
         }
         
+        html {
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+        
         body {
             font-family: 'Poppins', sans-serif;
             color: var(--dark-text);
             line-height: 1.6;
+            overflow-x: hidden;
+            width: 100%;
         }
 
-        /* ============================================
-           NAVIGATION BAR STYLING
-           ============================================ */
+        /* Container Fix */
+        .container {
+            width: 100%;
+            padding-right: 15px;
+            padding-left: 15px;
+            margin-right: auto;
+            margin-left: auto;
+        }
+
+        @media (min-width: 576px) {
+            .container { max-width: 540px; }
+        }
+
+        @media (min-width: 768px) {
+            .container { max-width: 720px; }
+        }
+
+        @media (min-width: 992px) {
+            .container { max-width: 960px; }
+        }
+
+        @media (min-width: 1200px) {
+            .container { max-width: 1140px; }
+        }
+
+        @media (min-width: 1400px) {
+            .container { max-width: 1320px; }
+        }
+
+        /* Row Fix */
+        .row {
+            margin-right: -12px;
+            margin-left: -12px;
+        }
+
+        .row > * {
+            padding-right: 12px;
+            padding-left: 12px;
+        }
+
+        /* Navbar */
         .navbar {
             background: rgba(10, 77, 104, 0.98) !important;
             backdrop-filter: blur(15px);
@@ -126,9 +169,7 @@
             box-shadow: 0 6px 25px rgba(5, 191, 219, 0.5);
         }
 
-        /* ============================================
-           HERO SECTION WITH PROJECT 1 GRADIENT
-           ============================================ */
+        /* Hero Section */
         .hero-section {
             background: var(--gradient-primary);
             color: white;
@@ -220,11 +261,12 @@
             border-radius: 20px;
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
             animation: fadeInRight 1s ease-out;
+            width: 100%;
+            height: auto;
+            max-width: 100%;
         }
 
-        /* ============================================
-           STATS CARDS WITH PROJECT 1 STYLE
-           ============================================ */
+        /* Stats Section */
         .stats-section {
             background: var(--light-bg);
             padding: 80px 0;
@@ -233,7 +275,7 @@
         .stats-card {
             background: white;
             border-radius: 20px;
-            padding: 3rem 2rem;
+            padding: 2.5rem 1.5rem;
             text-align: center;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
             transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
@@ -258,7 +300,7 @@
         }
 
         .stats-card h2 {
-            font-size: 3rem;
+            font-size: 2.5rem;
             font-weight: 800;
             color: var(--primary-color);
             margin: 1.5rem 0 0.5rem;
@@ -273,9 +315,7 @@
             font-size: 1rem;
         }
 
-        /* ============================================
-           SECTION HEADERS
-           ============================================ */
+        /* Section Headers */
         .section-title {
             font-size: 2.8rem;
             font-weight: 800;
@@ -304,9 +344,7 @@
             font-weight: 400;
         }
 
-        /* ============================================
-           COURSE CARDS WITH PROJECT 1 COLORS
-           ============================================ */
+        /* Course Cards */
         .course-card {
             border: none;
             border-radius: 20px;
@@ -356,15 +394,17 @@
             margin: 1rem 0;
         }
 
+        .course-card .card-body {
+            padding: 1.5rem;
+        }
+
         .course-card .card-footer {
             background: transparent;
             border: none;
             padding: 1.5rem;
         }
 
-        /* ============================================
-           BUTTONS WITH PROJECT 1 STYLING
-           ============================================ */
+        /* Buttons */
         .btn-primary {
             background: var(--gradient-primary);
             border: none;
@@ -400,9 +440,7 @@
             box-shadow: 0 5px 15px rgba(8, 131, 149, 0.3);
         }
 
-        /* ============================================
-           COUNTRY CARDS
-           ============================================ */
+        /* Country Cards */
         .country-card {
             transition: all 0.3s ease;
             border-radius: 15px;
@@ -415,6 +453,10 @@
             box-shadow: 0 15px 40px rgba(8, 131, 149, 0.2);
         }
 
+        .country-card .card-body {
+            padding: 1.5rem 1rem;
+        }
+
         .country-card i {
             color: var(--secondary-color);
         }
@@ -422,11 +464,27 @@
         .country-card h6 {
             color: var(--primary-color);
             font-weight: 700;
+            font-size: 0.95rem;
         }
 
-        /* ============================================
-           SERVICE CARDS
-           ============================================ */
+        /* Service Cards */
+        .service-card {
+            border: none;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(8, 131, 149, 0.2);
+        }
+
+        .service-card .card-body {
+            padding: 2rem 1.5rem;
+        }
+
         .service-card i {
             color: var(--secondary-color);
             transition: all 0.3s ease;
@@ -442,66 +500,33 @@
             font-weight: 700;
         }
 
-        /* ============================================
-           TESTIMONIAL CARDS
-           ============================================ */
-        .testimonial-card {
+        /* About Topic Cards */
+        .about-topic-card {
+            border: none;
             border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
             transition: all 0.3s ease;
         }
 
-        .testimonial-card:hover {
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+        .about-topic-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(8, 131, 149, 0.2);
         }
 
-        .testimonial-card .rounded-circle {
-            border: 3px solid var(--accent-color) !important;
+        .about-topic-card .card-body {
+            padding: 2rem 1.5rem;
         }
 
-        /* ============================================
-           CTA SECTION
-           ============================================ */
-        .cta-section {
-            background: var(--gradient-primary);
-            padding: 100px 0;
-            position: relative;
-            overflow: hidden;
+        .about-topic-card i {
+            color: var(--secondary-color);
         }
 
-        .cta-section::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: radial-gradient(circle at 20% 50%, rgba(5, 191, 219, 0.2), transparent),
-                        radial-gradient(circle at 80% 50%, rgba(8, 131, 149, 0.2), transparent);
-        }
-
-        .cta-section .container {
-            position: relative;
-            z-index: 1;
-        }
-
-        .cta-section .btn-light {
-            background: white;
+        .about-topic-card .card-title {
             color: var(--primary-color);
-            padding: 1rem 2.5rem;
-            border-radius: 50px;
             font-weight: 700;
-            transition: all 0.4s ease;
-            box-shadow: 0 5px 20px rgba(255, 255, 255, 0.3);
         }
 
-        .cta-section .btn-light:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 35px rgba(255, 255, 255, 0.5);
-        }
-
-        /* ============================================
-           FOOTER WITH PROJECT 1 COLORS
-           ============================================ */
+        /* Footer */
         .footer {
             background: var(--primary-color);
             color: white;
@@ -560,9 +585,7 @@
             margin-bottom: 0.8rem;
         }
 
-        /* ============================================
-           RESPONSIVE DESIGN
-           ============================================ */
+        /* Responsive Design */
         @media (max-width: 991px) {
             .navbar-collapse {
                 background: rgba(10, 77, 104, 0.98);
@@ -581,6 +604,7 @@
         @media (max-width: 768px) {
             .hero-section {
                 padding: 100px 0 60px;
+                min-height: auto;
             }
 
             .hero-section h1 {
@@ -595,28 +619,43 @@
                 font-size: 2rem;
             }
 
-            .stats-card h2 {
-                font-size: 2.2rem;
-            }
-        }
-
-        @media (max-width: 576px) {
-            .hero-section h1 {
-                font-size: 1.8rem;
-            }
-
-            .section-title {
-                font-size: 1.7rem;
+            .stats-section {
+                padding: 50px 0;
             }
 
             .stats-card {
                 padding: 2rem 1rem;
             }
+
+            .stats-card h2 {
+                font-size: 2rem;
+            }
         }
 
-        /* ============================================
-           ANIMATIONS
-           ============================================ */
+        @media (max-width: 576px) {
+            .hero-section h1 {
+                font-size: 1.75rem;
+            }
+
+            .hero-section .lead {
+                font-size: 0.95rem;
+            }
+
+            .section-title {
+                font-size: 1.75rem;
+            }
+
+            .stats-card h2 {
+                font-size: 1.75rem;
+            }
+
+            .btn-lg {
+                font-size: 1rem;
+                padding: 0.75rem 1.5rem;
+            }
+        }
+
+        /* Animations */
         @keyframes fadeInUp {
             from {
                 opacity: 0;
@@ -643,9 +682,10 @@
             animation: fadeInUp 0.8s ease-out;
         }
 
-        /* Smooth Scrolling */
-        html {
-            scroll-behavior: smooth;
+        /* Ensure all images responsive */
+        img {
+            max-width: 100%;
+            height: auto;
         }
     </style>
 
@@ -670,16 +710,19 @@
                         <a class="nav-link {{ request()->routeIs('courses.*') ? 'active' : '' }}" href="{{ route('courses.index') }}">Courses</a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link {{ request()->routeIs('universities.*') ? 'active' : '' }}" href="{{ route('universities.index') }}">Universities</a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link {{ request()->routeIs('countries.*') ? 'active' : '' }}" href="{{ route('countries.index') }}">Countries</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link {{ request()->routeIs('services') ? 'active' : '' }}" href="{{ route('services') }}">Services</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {{ request()->routeIs('blogs.*') ? 'active' : '' }}" href="{{ route('blogs.index') }}">Blog</a>
+                        <a class="nav-link {{ request()->routeIs('blogs.*') ? 'active' : '' }}" href="{{ route('blogs.index') }}">Blogs</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {{ request()->routeIs('contact.*') ? 'active' : '' }}" href="{{ route('contact.index') }}">Contact</a>
+                        <a class="nav-link {{ request()->routeIs('contact.*') ? 'active' : '' }}" href="{{ route('contact.index') }}">Contact Us</a>
                     </li>
                     <li class="nav-item">
                         <a class="btn btn-apply-nav" href="{{ route('application.create') }}">Apply Now</a>
@@ -722,7 +765,7 @@
                 <div class="col-lg-3 col-md-6 mb-4">
                     <h6>Resources</h6>
                     <ul>
-                        <li><a href="{{ route('blogs.index') }}">Blog</a></li>
+                        <li><a href="{{ route('blogs.index') }}">Blogs</a></li>
                         <li><a href="{{ route('events.index') }}">Events</a></li>
                         <li><a href="{{ route('scholarships.index') }}">Scholarships</a></li>
                         <li><a href="{{ route('faqs') }}">FAQs</a></li>
