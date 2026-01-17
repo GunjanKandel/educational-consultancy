@@ -40,7 +40,7 @@
 
                 <div class="col-md-6">
                     <label class="form-label">Display Order</label>
-                    <input type="number" name="order" class="form-control">
+                    <input type="number" name="display_order" class="form-control">
                 </div>
 
                 <div class="col-12">
@@ -64,6 +64,8 @@
                 </div>
 
                 <div class="col-md-6 form-check mt-4">
+                    <!-- Hidden input ensures unchecked checkbox sends 0 -->
+                    <input type="hidden" name="is_active" value="0">
                     <input class="form-check-input" type="checkbox" name="is_active" value="1" checked>
                     <label class="form-check-label">Active</label>
                 </div>

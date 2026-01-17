@@ -21,31 +21,38 @@ class TeamController extends Controller
         return view('admin.teams.create');
     }
 
-    public function store(Request $request)
-    {
-        $validated = $request->validate([
-            'name' => 'required|string|max:255',
-            'designation' => 'required|string|max:255',
-            'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'bio' => 'nullable|string',
-            'expertise' => 'nullable|string',
-            'email' => 'nullable|email|max:100',
-            'phone' => 'nullable|string|max:20',
-            'facebook' => 'nullable|url',
-            'linkedin' => 'nullable|url',
-            'order' => 'nullable|integer',
-            'is_active' => 'boolean',
-        ]);
+   public function store(Request $request)
+{
+    $validated = $request->validate([
+        'name' => 'required|string|max:255',
+        'designation' => 'required|string|max:255',
+        'photo' => 'nullable|image|max:2048',
+        'bio' => 'nullable|string',
+        'expertise' => 'nullable|string',
+        'email' => 'nullable|email',
+        'phone' => 'nullable|string',
+        'facebook' => 'nullable|string|max:255',
+        'linkedin' => 'nullable|string|max:255',
+        'display_order' => 'nullable|integer',
+        'is_active' => 'nullable|boolean',
+    ]);
 
-        if ($request->hasFile('photo')) {
-            $validated['photo'] = $request->file('photo')->store('teams', 'public');
-        }
-
-        Team::create($validated);
-
-        return redirect()->route('admin.teams.index')
-            ->with('success', 'Team member added successfully!');
+   
+    if (!isset($validated['display_order'])) {
+        $validated['display_order'] = 1;
     }
+
+    $validated['is_active'] = $request->has('is_active') ? 1 : 0;
+
+    if ($request->hasFile('photo')) {
+        $validated['photo'] = $request->file('photo')->store('teams', 'public');
+    }
+
+    Team::create($validated);
+
+    return redirect()->route('admin.teams.index')
+        ->with('success', 'Team member added successfully');
+}
 
     public function edit(Team $team)
     {
@@ -62,9 +69,9 @@ class TeamController extends Controller
             'expertise' => 'nullable|string',
             'email' => 'nullable|email|max:100',
             'phone' => 'nullable|string|max:20',
-            'facebook' => 'nullable|url',
-            'linkedin' => 'nullable|url',
-            'order' => 'nullable|integer',
+            'facebook' => 'nullable|string|max:255',
+            'linkedin' => 'nullable|string|max:255',
+            'display_order' => 'nullable|integer',
             'is_active' => 'boolean',
         ]);
 

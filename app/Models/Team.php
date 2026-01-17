@@ -16,7 +16,7 @@ class Team extends Model
         'phone',
         'facebook',
         'linkedin',
-        'order',
+        'display_order',
         'is_active',
     ];
 

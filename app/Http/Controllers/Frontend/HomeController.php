@@ -21,55 +21,55 @@ class HomeController extends Controller
 {
     public function index()
     { 
-        // Featured Courses (limit to 6 for better display)
+        // Featured Courses (limit to 6 for homepage)
         $featured_courses = Course::where('is_featured', true)
             ->with('country')
             ->take(6)
             ->get();
 
-        // Latest Blogs
+        // Latest Blogs (limit to 5)
         $latest_blogs = Blog::where('is_published', true)
             ->latest()
             ->take(5)
             ->get();
 
-        // Stats - Enhanced with partner universities
+        // Stats
         $stats = [
-            'total_students' => 5000, // You can use User::where('role', 'student')->count() if you have student role
+            'total_students' => 5000, // Replace with actual student count if needed
             'total_countries' => Country::count(),
-            'success_rate' => 98, // You can calculate dynamically based on successful applications
-            'partner_universities' => University::count() ?? 150, // Use actual count if universities table exists
+            'success_rate' => 98, // Replace with dynamic calculation if needed
+            'partner_universities' => University::count() ?? 150,
         ];
 
-        // Popular countries (increased to 12 for responsive grid)
+        // Popular Countries (limit 12)
         $popular_countries = Country::withCount('courses')
             ->orderBy('courses_count', 'desc')
             ->take(12)
             ->get();
 
-        // Services (limit to 6 for better display)
+        // Services (limit 6)
         $services = Service::take(6)->get();
 
-        // Team Members (show top 4 for homepage)
+        // Team Members (top 4 for homepage)
         $teams = Team::where('is_active', true)
-            ->orderBy('order', 'asc')
+            ->orderBy('display_order', 'asc') // Correct column
             ->take(4)
             ->get();
 
-        // Branches (show top 3 for homepage)
+        // Branches (top 3 for homepage)
         $branches = Branch::where('is_active', true)
-            ->orderBy('order', 'asc')
+            ->orderBy('order', 'asc') // Correct column
             ->take(3)
             ->get();
 
-        // Testimonials (featured ones only, limit to 3 for better mobile display)
+        // Testimonials (top 3 featured)
         $testimonials = Testimonial::with('country')
             ->where('is_featured', true)
             ->latest()
             ->take(3)
             ->get();
 
-        // About Topics for homepage
+        // About Topics (ordered)
         $aboutTopics = AboutTopic::where('is_active', true)
             ->orderBy('order', 'asc')
             ->get();
@@ -89,12 +89,10 @@ class HomeController extends Controller
 
     public function about()
     {
-        // Load team members for about page
         $teams = Team::where('is_active', true)
-            ->orderBy('order', 'asc')
+            ->orderBy('display_order', 'asc')
             ->get();
 
-        // Load About Topics
         $aboutTopics = AboutTopic::where('is_active', true)
             ->orderBy('order', 'asc')
             ->get();
@@ -104,17 +102,14 @@ class HomeController extends Controller
 
     public function services()
     {
-        // Load all services for services page
         $services = Service::all();
-
         return view('frontend.services', compact('services'));
     }
 
     public function team()
     {
-        // Load all team members for team page
         $teams = Team::where('is_active', true)
-            ->orderBy('order', 'asc')
+            ->orderBy('display_order', 'asc')
             ->paginate(9);
 
         return view('frontend.team', compact('teams'));
@@ -124,44 +119,36 @@ class HomeController extends Controller
     {
         $today = Carbon::now();
 
-        // Upcoming Events
         $upcoming_events = Event::where('is_active', true)
             ->where('event_date', '>=', $today)
             ->orderBy('event_date', 'asc')
             ->get();
 
-        // Past Events
         $past_events = Event::where('is_active', true)
             ->where('event_date', '<', $today)
             ->orderBy('event_date', 'desc')
             ->get();
 
-        return view('frontend.events', compact(
-            'upcoming_events',
-            'past_events'
-        ));
+        return view('frontend.events', compact('upcoming_events', 'past_events'));
     }
 
     public function scholarships()
     {
-        // Fetch active scholarships, latest first
         $scholarships = \App\Models\Scholarship::where('is_active', true)
             ->latest()
-            ->paginate(9); // paginate if you want pagination
+            ->paginate(9);
 
         return view('frontend.scholarships', compact('scholarships'));
     }
 
     public function faqs()
     {
-        // Get all active FAQs grouped by category
         $faqs = Faq::where('is_active', 1)
             ->orderBy('category')
             ->orderBy('id')
             ->get()
-            ->groupBy('category'); // Groups FAQs by category
+            ->groupBy('category');
 
         return view('frontend.faqs', compact('faqs'));
     }
-
 }

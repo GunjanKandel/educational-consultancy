@@ -48,7 +48,8 @@
 
                             <td>{{ $team->expertise ?? '-' }}</td>
 
-                            <td>{{ $team->order ?? '-' }}</td>
+                            <!-- Updated column name -->
+                            <td>{{ $team->display_order ?? '-' }}</td>
 
                             <td>
                                 @if($team->is_active)

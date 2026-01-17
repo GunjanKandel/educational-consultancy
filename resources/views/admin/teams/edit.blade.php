@@ -41,7 +41,7 @@
 
                 <div class="col-md-6">
                     <label class="form-label">Display Order</label>
-                    <input type="number" name="order" value="{{ $team->order }}" class="form-control">
+                    <input type="number" name="display_order" value="{{ $team->display_order }}" class="form-control">
                 </div>
 
                 <div class="col-12">
@@ -70,6 +70,7 @@
                 </div>
 
                 <div class="col-md-6 form-check mt-4">
+                    <input type="hidden" name="is_active" value="0">
                     <input class="form-check-input" type="checkbox" name="is_active"
                            value="1" {{ $team->is_active ? 'checked' : '' }}>
                     <label class="form-check-label">Active</label>
