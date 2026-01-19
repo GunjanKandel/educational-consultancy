@@ -94,6 +94,16 @@
             transition: all 0.4s ease;
         }
 
+        /* Only add sticky-top class styling when navbar has sticky-top class */
+        .navbar.sticky-top {
+            position: fixed !important;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1020;
+            width: 100%;
+        }
+
         .navbar.scrolled {
             padding: 0.8rem 0;
             background: rgba(10, 77, 104, 1) !important;
@@ -177,6 +187,11 @@
             position: relative;
             overflow: hidden;
             min-height: 600px;
+        }
+        
+        /* Add padding-top to body when on homepage to account for fixed navbar */
+        body.homepage-body {
+            padding-top: 0;
         }
 
         .hero-section::before {
@@ -526,6 +541,25 @@
             font-weight: 700;
         }
 
+        /* CTA Section */
+        .cta-section {
+            background: var(--gradient-primary);
+            padding: 80px 0;
+        }
+
+        /* Testimonial Cards */
+        .testimonial-card {
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+        }
+
+        .testimonial-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(8, 131, 149, 0.2);
+        }
+
         /* Footer */
         .footer {
             background: var(--primary-color);
@@ -691,9 +725,9 @@
 
     @stack('styles')
 </head>
-<body>
-    <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg sticky-top">
+<body class="{{ request()->routeIs('home') ? 'homepage-body' : '' }}">
+    <!-- Navbar - sticky-top class only on homepage -->
+    <nav class="navbar navbar-expand-lg {{ request()->routeIs('home') ? 'sticky-top' : '' }}">
         <div class="container">
             <a class="navbar-brand" href="{{ route('home') }}">
                 <i class="fas fa-graduation-cap"></i>EduConsult
@@ -797,7 +831,8 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     
     <script>
-        // Enhanced Navbar Scroll Effect
+        // Enhanced Navbar Scroll Effect - only on homepage
+        @if(request()->routeIs('home'))
         let lastScroll = 0;
         const navbar = document.querySelector('.navbar');
         
@@ -812,6 +847,7 @@
             
             lastScroll = currentScroll;
         });
+        @endif
 
         // Smooth scroll for anchor links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
